@@ -13,7 +13,7 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
 <body>
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">SITENAME</a>
+    <a class="navbar-brand" href="{% url 'pages:homepage' %}">Wisdom Phrases</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
       data-target="#navbarSupportedContent" aria-expanded="false"
       aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home 
+          <a class="nav-link" href="{% url 'pages:homepage' %}">Home 
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -65,7 +65,7 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
       <div class="float-right m-1 mr-2">Copyright &copy; 2020 SITENAME.</div>
       <nav>
         <ul class="nav">
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'pages:about-us' %}">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
         </ul>
       </nav>
