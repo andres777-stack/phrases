@@ -1,0 +1,11 @@
+{%extends '_base.html'%} 
+
+{%block title%} Phrases {%endblock%}
+{%block main%} 
+<h2>Phrases</h2>
+<ul class="list-group list-group-flush mb-3">
+    {%for phrase in phrase_list%}
+    <li class="list-group-item">{{phrase.sentence}}</li>
+    {%endfor%}
+</ul>
+{%endblock%}

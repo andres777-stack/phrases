@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import TemplateView
+from .views import PhraseListView
 
 app_name = 'phrases'
 
 urlpatterns = [
-    path('', TemplateView.as_view(), name='phrases'),
+    path('', PhraseListView.as_view(), name='list'),
 ]
