@@ -5,7 +5,7 @@
 <h2>Phrases</h2>
 <ul class="list-group list-group-flush mb-3">
     {%for phrase in phrase_list%}
-    <li class="list-group-item">{{phrase.sentence}}</li>
+    <li class="list-group-item"><a href="{{ phrase.get_absolute_url }}">{{phrase.sentence}}</a></li>
     {%endfor%}
 </ul>
 {%endblock%}

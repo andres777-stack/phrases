@@ -1,0 +1,17 @@
+{%extends '_base.html'%} 
+
+{%block title%} Phrase {%endblock%}
+{%block main%} 
+<div class="card border-primary m-auto mb-3 text-center" style="max-width: 30rem">
+    <div class="card-header">{{phrase.author}}</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">{{phrase.sentence}}</h5>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">
+            Created on:{{phrase.created}}
+            Last updated:{{phrase.updated}}
+        </small>
+    </div>
+</div>
+{%endblock%}
