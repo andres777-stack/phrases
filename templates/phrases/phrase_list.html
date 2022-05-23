@@ -7,7 +7,8 @@
 <ul class="list-group list-group-flush mb-3">
     {%for phrase in phrase_list%}
     <li class="list-group-item"><a href="{{ phrase.get_absolute_url }}">{{phrase.sentence}}</a>
-    <a class="btn btn-info btn-sm float-right" href="{% url 'phrases:update' phrase.pk %}">Update</a>
+    <a class="btn btn-info btn-sm float-right mr-2" href="{% url 'phrases:update' phrase.pk %}">Update</a>
+    <a href="{% url 'phrases:delete' phrase.pk %}" class="btn btn-danger btn-sm float-right mr-2">Delete</a>
     </li>
     {%endfor%}
 </ul>

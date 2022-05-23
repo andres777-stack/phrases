@@ -1,0 +1,15 @@
+{%extends '_base.html'%} 
+
+{% block title %} Delete Phrase {%endblock %} 
+
+{% block main %} 
+<div class="card border-primary m-auto mb-3 text-center" style="max-width: 30rem">
+    <form action="" method="post">
+        {%csrf_token%} 
+        <p><strong>Are you sure you want to delete this phrase</strong></p>
+        <p>{{phrase.sentence}}</p>
+        <button class="btn btn-success form-control">Confirm</button>
+    </form>
+</div>
+{% endblock %} 
+
