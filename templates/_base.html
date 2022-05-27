@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,8 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
 <!-- ADD BOOTSTRAP CSS FROM https://getbootstrap.com/ -->
 <script src="https://kit.fontawesome.com/8c55106935.js" crossorigin="anonymous"></script>
 <!-- ADD FONT AWESOME FROM https://fontawesome.com/ -->
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="shortcut icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
 <title>{% block title %}{% endblock %} | Wisdom Phrases</title>
 </head>
 <body>
