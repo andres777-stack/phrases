@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #my_app
     'pages',
     'phrases',
+    'common',
 ]
 
 MIDDLEWARE = [
