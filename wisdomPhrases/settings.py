@@ -79,9 +79,17 @@ WSGI_APPLICATION = 'wisdomPhrases.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql', #Es la dirección de un folder que opera como una librería.
+        'NAME': 'phrases',
+        'PASSWORD': 'meherals',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PORT': 5432
     }
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': BASE_DIR / 'db.sqlite3',
+    #}
 }
 
 
