@@ -7,7 +7,7 @@ from .models import Phrase
 class PhraseForm(ModelForm):
     class Meta:
         model = Phrase
-        fields = ['sentence', 'author']
+        fields = ['sentence', 'author', 'category']
 
         widgets = {
             'sentence' : forms.Textarea(attrs={'cols': 80, 'rows': 3, 'autofocus': True}),
