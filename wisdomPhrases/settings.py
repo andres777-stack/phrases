@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'crispy_forms',
     #my_app
     'pages',
     'phrases',
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'users',
     'jobs',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
