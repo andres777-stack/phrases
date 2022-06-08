@@ -6,6 +6,7 @@ class Phrase(models.Model):
     author = models.CharField(max_length=50)
     sentence = models.TextField(max_length=255)
     category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    tags = models.ManyToManyField("Tag")
     slug = models.SlugField(max_length=50, unique=True, null=False, editable=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -46,4 +47,26 @@ class Category(models.Model):
     
     class Meta:
         verbose_name_plural = 'Categories'
+        ordering = ['category']
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, unique=True, null=False, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('phrase:tag', args=[self.slug])
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+            super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.tag
+    
+    class Meta:
+        ordering = ['tag']
 # Create your models here.

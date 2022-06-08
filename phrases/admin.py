@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Phrase, Category
+from .models import Phrase, Category, Tag
 
 @admin.register(Phrase)
 class PhraseAdmin(admin.ModelAdmin): #Para entender cómo se da esto hay que ver el __init__.py del folders admin. 
@@ -15,6 +15,16 @@ class PhraseAdmin(admin.ModelAdmin): #Para entender cómo se da esto hay que ver
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     list_display = ['category', 'created', 'updated']
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ('slug', 'created', 'updated')
+        return ()
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    model = Tag
+    list_display = ['tag', 'created', 'updated']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
