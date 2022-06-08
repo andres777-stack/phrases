@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Phrase
+from .forms import PhraseForm
 from django.urls import reverse_lazy
 
 class PhraseListView(ListView):
@@ -10,11 +11,11 @@ class PhraseDetailView(DetailView):
 
 class PhraseCreateView(CreateView):
     model = Phrase
-    fields = ['sentence', 'author']
+    form_class = PhraseForm
 
 class PhraseUpdateView(UpdateView):
     model = Phrase
-    fields = ['sentence', 'author']
+    form_class = PhraseForm
 
 class PhraseDeleteView(DeleteView):
     model = Phrase
