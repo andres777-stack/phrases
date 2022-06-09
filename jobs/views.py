@@ -1,12 +1,14 @@
 import html #funciones para manipulación de elementos html.
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, CreateView
 
 from common.utils.email import send_email
+from jobs.models import Applicant, Job
 from .forms import JobApplicationForm
 
-class JobAppView(FormView):
-    template_name = 'jobs/phrase_writer.html' #indica el template para renderizar el formulario. 
+class JobAppView(CreateView):
+    model = Applicant
+    template_name = 'jobs/applicant_form.html' #indica el template para renderizar el formulario. 
     form_class = JobApplicationForm #identifica la clase Form, que contiene los fields a ser mostrados.
     success_url = reverse_lazy('jobs:thanks') # luego que el formulario es procesado, se redireccionará a esta url.
     '''

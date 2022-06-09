@@ -69,4 +69,5 @@ class Tag(models.Model):
     
     class Meta:
         ordering = ['tag']
+
 # Create your models here.
