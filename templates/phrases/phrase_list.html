@@ -4,12 +4,34 @@
 {%block main%} 
 <a class="btn btn-success btn-sm float-right" href="{%url 'phrases:create'%}">+ New Phrase</a>
 <h2>Phrases</h2>
-<ul class="list-group list-group-flush mb-3">
-    {%for phrase in phrase_list%}
-    <li class="list-group-item"><a href="{{ phrase.get_absolute_url }}">{{phrase.sentence}}</a>
-    <a class="btn btn-info btn-sm float-right mr-2" href="{% url 'phrases:update' phrase.slug %}">Update</a>
-    <a href="{% url 'phrases:delete' phrase.slug %}" class="btn btn-danger btn-sm float-right mr-2">Delete</a>
-    </li>
-    {%endfor%}
-</ul>
+<div class="table-responsive">
+    <table class="table table-striped" style="min-width:500px">
+        <thead>
+            <tr>
+                <th>Phrase</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for phrase in phrase_list %}
+            <tr>
+                <td>
+                    <a href="{{phrase.get_absolute_url}}">{{phrase.sentence}}</a>
+                </td>
+                <td>
+                    {{phrase.category.category}} <br>
+                    {% for tag in phrase.tags.all %} 
+                    <span class="badge badge-pill badge-secondary">{{tag.tag}}</span>
+                    {%endfor%}  
+                </td>
+                <td>
+                    <a href="{% url 'phrases:update' phrase.slug %}"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{% url 'phrases:delete' phrase.slug %}"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
 {%endblock%}
