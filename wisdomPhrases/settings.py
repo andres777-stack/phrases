@@ -153,7 +153,7 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 ACCOUNT_USERNAME_REQUIRED = False
 
-
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
