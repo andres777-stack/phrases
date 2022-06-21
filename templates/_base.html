@@ -51,7 +51,7 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
                 Me
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">My Account</a></li>
+                <li><a class="dropdown-item" href="{% url 'my-account' %}">My Account</a></li>
                 <li><a class="dropdown-item" href="#">Django Phrases</a></li>
                 <form action="{% url 'account_logout' %}" method="post">
                   {%csrf_token%}
