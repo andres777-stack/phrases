@@ -1,11 +1,13 @@
 from django.db import models
 from django.urls import reverse
 from common.utils.text import unique_slug
+from django.conf import settings
 
 class Phrase(models.Model):
     author = models.CharField(max_length=50)
     sentence = models.TextField(max_length=255)
     category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     tags = models.ManyToManyField("Tag")
     slug = models.SlugField(max_length=50, unique=True, null=False, editable=False)
     created = models.DateTimeField(auto_now_add=True)

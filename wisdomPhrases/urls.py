@@ -6,10 +6,11 @@ urlpatterns = [
     path('admin/docs/', include('django.contrib.admindocs.urls')), #como cualquier otra app, tiene su urls. 
     path('admin/', admin.site.urls),
     #User management
+    path('account/', include('users.urls')),
     path('account/', include('allauth.urls')),
     #Local apps
     path('', include('pages.urls')),
     path('phrases/', include('phrases.urls')),
     path('jobs/', include('jobs.urls')),
-    path('account/', include('users.urls')),
+    
 ]
