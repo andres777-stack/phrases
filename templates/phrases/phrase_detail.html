@@ -15,10 +15,12 @@
             <span class="badge badge-pill badge-secondary">{{tag.tag}}</span> 
             {%endfor%}
         </div>
+        {%if user == phrase.user %}
         <div class="border-bottom border-faded m-2 pb-2">
             <a href="{% url 'phrases:update' phrase.slug %}" class="btn btn-info btn-sm mr-2">Update</a> 
             <a href="{% url 'phrases:delete' phrase.slug %}" class="btn btn-danger btn-sm mr-2">Delete</a> 
         </div>
+        {% endif %}
         <small class="text-muted">
             Created on:{{phrase.created}} by
             {{ phrase.user.username }}<br>

@@ -10,7 +10,11 @@
             <tr>
                 <th>Phrase</th>
                 <th>Category</th>
+                {% if user == phrase.user %}
                 <th>Actions</th>
+                {%else%} 
+                <th>Creator</th>
+                {%endif%}
             </tr>
         </thead>
         <tbody>
@@ -25,10 +29,16 @@
                     <span class="badge badge-pill badge-secondary">{{tag.tag}}</span>
                     {%endfor%}  
                 </td>
+                {% if user == phrase.user %}
                 <td>
                     <a href="{% url 'phrases:update' phrase.slug %}"><i class="fas fa-pencil-alt"></i></a>
                     <a href="{% url 'phrases:delete' phrase.slug %}"><i class="fas fa-trash-alt"></i></a>
                 </td>
+                {%else %}
+                <td>
+                    <p><small>By {{phrase.user.username}}</small></p>
+                </td>
+                {%endif%}
             </tr>
             {%endfor%}
         </tbody>
