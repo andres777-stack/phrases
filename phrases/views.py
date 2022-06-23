@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from .models import Phrase
 from .forms import PhraseForm
 from django.urls import reverse_lazy
@@ -10,17 +11,19 @@ class PhraseListView(ListView):
 class PhraseDetailView(DetailView):
     model = Phrase
 
-class PhraseCreateView(LoginRequiredMixin, CreateView):
+class PhraseCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Phrase
     form_class = PhraseForm
+    success_message = 'Phrase created successfully.'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class PhraseUpdateView(UserPassesTestMixin, UpdateView):
+class PhraseUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = Phrase
     form_class = PhraseForm
+    success_message = 'Update successful.'
 
     def test_func(self):
         obj = self.get_object()
