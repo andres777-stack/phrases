@@ -1,5 +1,7 @@
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Phrase
 from .forms import PhraseForm
@@ -33,8 +35,14 @@ class PhraseDeleteView(UserPassesTestMixin, DeleteView):
     model = Phrase
     success_url = reverse_lazy('phrases:list')
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Phrase deleted.')
+        return super().delete(request, *args, **kwargs)
+
     def test_func(self):
         obj = self.get_object()
         return self.request.user == obj.user
+    
+    
 
 # Create your views here.
