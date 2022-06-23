@@ -74,6 +74,20 @@ integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmV
   </nav>
 </header>
 <main class="m-4 pb-5">
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <div class="alert alert-dismissible" id="message{{message.tags}}" role="alert">
+          <strong>{{message}}</strong>
+          <p>{{message.tags}}</p>
+          <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <i class="fas fa-window-close"></i>
+          </button>
+        </div>
+      {% endfor %}
+    </ul>
+  {% endif %}
   {% block main %}<h2>Welcome!</h2>{% endblock %}
 </main>
 <footer class="fixed-bottom bg-light row">
