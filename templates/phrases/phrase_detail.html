@@ -22,6 +22,10 @@
         </div>
         {% endif %}
         <small class="text-muted">
+            {% if phrase.user.avatar %}
+            <img src="{{phrase.user.avatar.url}}" alt="{{phrase.user.username}}" 
+            class="mt-1 rounded float-right" width="50" height="50">
+            {%endif%}
             Created on:{{phrase.created}} by
             {{ phrase.user.username }}<br>
             Last updated:{{phrase.updated}}
