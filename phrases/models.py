@@ -28,6 +28,16 @@ class Phrase(models.Model):
             return f'{self.sentence[:15]}...({self.author})'
         else:
             return f'{self.sentence} ({self.author})'
+    
+    @property
+    def num_votes(self):
+        return self.phrasevotes.count()
+    @property
+    def num_likes(self):
+        return self.phrasevotes.filter(vote=1).count()
+    @property
+    def num_dislikes(self):
+        return self.phrasevotes.filter(vote= -1).count()
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
