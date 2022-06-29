@@ -6,9 +6,9 @@ from django.conf import settings
 class Phrase(models.Model):
     author = models.CharField(max_length=50)
     sentence = models.TextField(max_length=255)
-    category = models.ForeignKey("Category", on_delete=models.PROTECT)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    tags = models.ManyToManyField("Tag")
+    category = models.ForeignKey("Category", on_delete=models.PROTECT, related_name='phrases')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='phrases')
+    tags = models.ManyToManyField("Tag", blank=True, related_name='phrases')
     slug = models.SlugField(max_length=50, unique=True, null=False, editable=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -71,5 +71,16 @@ class Tag(models.Model):
     
     class Meta:
         ordering = ['tag']
+
+class PhraseVote(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='phrasevotes')
+    phrase = models.ForeignKey(Phrase, on_delete=models.CASCADE, related_name='phrasevotes')
+    vote = models.SmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['user', 'phrase'], name='one_vote_per_user_per_phrase'
+        )]
 
 # Create your models here.
