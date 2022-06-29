@@ -1,14 +1,14 @@
 from django.urls import path
 from .views import (PhraseListView, PhraseDetailView, PhraseCreateView, 
-PhraseUpdateView, PhraseDeleteView)
+PhraseUpdateView, PhraseDeleteView, vote)
 
 app_name = 'phrases'
 
 urlpatterns = [
     path('', PhraseListView.as_view(), name='list'),
-    path('joke/create/', PhraseCreateView.as_view(), name='create'),
-    path('joke/<slug>/', PhraseDetailView.as_view(), name='detail'),
-    path('joke/<slug>/update/', PhraseUpdateView.as_view(), name='update'),
-    path('joke/<slug>/delete/', PhraseDeleteView.as_view(), name='delete'),
-
+    path('phrase/create/', PhraseCreateView.as_view(), name='create'),
+    path('phrase/<slug>/', PhraseDetailView.as_view(), name='detail'),
+    path('phrase/<slug>/update/', PhraseUpdateView.as_view(), name='update'),
+    path('phrase/<slug>/vote/', vote, name='ajax-vote'),
+    path('phrase/<slug>/delete/', PhraseDeleteView.as_view(), name='delete'),
 ]
