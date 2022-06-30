@@ -1,10 +1,9 @@
 window.addEventListener('load', () => {
-    if (document.getElementById('like-button')) { // If like button exists?
       const likeButton = document.getElementById('like-button');
       const dislikeButton = document.getElementById('dislike-button');
       likeButton.addEventListener('click', () => { register(1); })
       dislikeButton.addEventListener('click', () => { register(-1); })
-    }
+    
   })
   
   function register(vote) {

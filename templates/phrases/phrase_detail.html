@@ -1,5 +1,11 @@
-{%extends '_base.html'%} 
-
+{%extends '_base.html'%}
+{% load static %} 
+{% block javascript %} 
+<script>
+    const ajaxURL = "{% url 'phrases:ajax-vote' phrase.slug %}";
+</script>
+<script src="{% static 'js/phrases.js' %}"></script>
+{% endblock %}
 {%block title%} Phrase {%endblock%}
 {%block main%} 
 <div class="card border-primary m-auto mb-3 text-center" style="max-width: 30rem">
@@ -15,12 +21,40 @@
             <span class="badge badge-pill badge-secondary">{{tag.tag}}</span> 
             {%endfor%}
         </div>
-        {%if user == phrase.user %}
         <div class="border-bottom border-faded m-2 pb-2">
-            <a href="{% url 'phrases:update' phrase.slug %}" class="btn btn-info btn-sm mr-2">Update</a> 
-            <a href="{% url 'phrases:delete' phrase.slug %}" class="btn btn-danger btn-sm mr-2">Delete</a> 
-        </div>
+        {% if phrase.user == user %}
+          <a href="{% url 'phrases:update' phrase.slug %}"
+            class="btn btn-info btn-sm mr-2">Update</a>
+          <a href="{% url 'phrases:delete' phrase.slug %}"
+            class="btn btn-danger btn-sm mr-2">Delete</a>
+          <p>
+            Your phrase has
+            <span id="num-votes">
+              {{ phrase.num_votes|default:'no' }}
+              vote{{ phrase.num_votes|pluralize }}</span>
+            {% if phrase.num_votes %}:
+            <span id="likes">{{ phrase.num_likes }}
+              like{{ phrase.num_likes|pluralize }}</span> and
+            <span id="dislikes">
+              {{ phrase.num_dislikes }}
+              dislike{{ phrase.num_dislikes|pluralize }}</span>
+            {% endif %}.
+          </p>
+        {% else %}
+          {% csrf_token %}
+          <button id="dislike-button" class="btn btn-light">
+            <i class="fas fa-thumbs-down fa-2x text-danger mx-3"></i>
+            <span id="dislikes">{{ phrase.num_dislikes }}</span>
+          </button>
+          <button id="like-button" class="btn btn-light">
+            <i class="fas fa-thumbs-up fa-2x text-success mx-3"></i>
+            <span id="likes">{{ phrase.num_likes }}</span>
+          </button>
+          <div id="output" class="text-info"></div>
+          <span id="num-votes">{{ phrase.num_votes }}
+            vote{{ phrase.num_votes|pluralize }}</span>
         {% endif %}
+        </div>
         <small class="text-muted">
             {% if phrase.user.avatar %}
             <img src="{{phrase.user.avatar.url}}" alt="{{phrase.user.username}}" 
