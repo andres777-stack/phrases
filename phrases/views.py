@@ -11,6 +11,7 @@ from django.http import JsonResponse
 
 class PhraseListView(ListView):
     model = Phrase
+    paginate_by = 1
 
 class PhraseDetailView(DetailView):
     model = Phrase
