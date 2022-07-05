@@ -2,20 +2,55 @@
 
 {%block title%} Phrases {%endblock%}
 {%block main%} 
-<a class="btn btn-success btn-sm float-right" href="{%url 'phrases:create'%}">+ New Phrase</a>
-<h2>Phrases</h2>
+<div class="col-12 col-md-2 col-lg-3">
+    <h2>Phrases</h2>
+</div>
+<div class="col-12 col-md-8 col-lg-6">
+    <form action="" class="form-inline my-2 mx-auto" style="max-width: 30rem;">
+        <label for="order" class="my-1 mr-2">Order by:</label>
+        <select name="order" id="order" class="form-control">
+            {%for field in order_fields%} 
+            <option value="{{ field }}" {% if order == field %} selected {%endif%}>{{field|title}}</option>
+            {%endfor%}
+        </select>
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" name="direction" id="asc" 
+            value="asc" {%if direction == 'asc'%} checked {%endif%}>
+            <label for="asc" class="form-check-label">ASC</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="radio" name="direction" class="form-check-input" id="desc" 
+            value="desc" {%if direction == 'desc'%} checked {%endif%}>
+            <label for="desc" class="form-check-label">DESC</label>
+        </div>
+        <button class="btn btn-primary btn-sm m-2" type="submit">Sort</button>
+    </form>
+</div>
+<div class="col-12 col-md-2 col-lg-3 text-right">
+    <a class="btn btn-success btn-sm float-right" href="{%url 'phrases:create'%}">+ New Phrase</a>
+</div>
 <div class="table-responsive">
     <table class="table table-striped" style="min-width:500px">
         <thead>
+            {% with order=request.GET.order dir=request.GET.direction %}
             <tr>
-                <th>Phrase</th>
-                <th>Category</th>
-                {% if user == phrase.user %}
-                <th>Actions</th>
+                {% if order == 'phrase' and dir == 'asc' %}
+                <th><a href="?order=phrase&direction=desc">Phrase</a></th>
+                {%else%}
+                <th><a href="?order=phrase&direction=asc">Phrase</a></th>
+                {%endif%}
+                {% if order == 'category' and dir == 'asc' %}
+                <th><a href="?order=category&direction=desc">Category</a></th>
+                {%else%}
+                <th><a href="?order=category&direction=asc">Category</a></th>
+                {%endif%}
+                {% if order == 'creator' and dir == 'asc' %} 
+                <th><a href="?order=creator&direction=desc">Creator</a></th>
                 {%else%} 
-                <th>Creator</th>
+                <th><a href="?order=creator&direction=asc">Creator</a></th>
                 {%endif%}
             </tr>
+            {%endwith%}
         </thead>
         <tbody>
             {% for phrase in phrase_list %}

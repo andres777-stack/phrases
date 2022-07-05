@@ -11,7 +11,47 @@ from django.http import JsonResponse
 
 class PhraseListView(ListView):
     model = Phrase
-    paginate_by = 1
+    paginate_by = 4
+
+    def get_order_settings(self):
+        order_fields = self.get_order_fields()
+        default_order_key = order_fields['default_key']
+        order_key = self.request.GET.get('order', default_order_key)
+        direction = self.request.GET.get('direction', 'desc')
+        #if order_key is invalid, use default.
+        if order_key not in order_fields:
+            order_key = default_order_key
+        return (order_fields, order_key, direction)
+
+    def get_ordering(self):
+        order_fields, order_key, direction = self.get_order_settings()
+        ordering = order_fields[order_key]
+        #if direction is 'desc' or is invalid use descending order
+        if direction != 'asc':
+            ordering = '-' + ordering
+        #default ordering will be '-updated'
+        return ordering
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_fields, order_key, direction = self.get_order_settings()
+        context['order'] = order_key
+        context['direction'] = direction
+        #get all but the last order key, which is 'default'
+        context['order_fields'] = list(order_fields.keys())[:-1]
+        return context
+    
+    
+    def get_order_fields(self):
+        """Return a dict mapping friendly names to field names and lookups."""
+        return {
+            'phrase': 'sentence',
+            'category': 'category__category',
+            'creator': 'user__username',
+            'created': 'created', 
+            'updated': 'updated',
+            'default_key': 'updated',
+        }
 
 class PhraseDetailView(DetailView):
     model = Phrase
