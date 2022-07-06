@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from common.utils.text import unique_slug
 from django.conf import settings
+from django.db.models import Avg 
 
 class Phrase(models.Model):
     author = models.CharField(max_length=50)
@@ -28,6 +29,14 @@ class Phrase(models.Model):
             return f'{self.sentence[:15]}...({self.author})'
         else:
             return f'{self.sentence} ({self.author})'
+    
+    @property
+    def rating(self):
+        if self.num_votes == 0:
+            return 0
+        r = PhraseVote.objects.filter(phrase=self).aggregate(average=Avg('vote'))
+        print(r)
+        return round(5 + (r['average']) * 5, 2)
     
     @property
     def num_votes(self):

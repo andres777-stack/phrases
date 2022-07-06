@@ -49,6 +49,7 @@
                 <th><a href="?order=creator&direction=desc&q={{request.GET.q}}">Creator</a></th>
                 {%else%} 
                 <th><a href="?order=creator&direction=asc&q={{request.GET.q}}">Creator</a></th>
+                <th>Rating</th>
                 {%endif%}
             </tr>
             {%endwith%}
@@ -75,6 +76,13 @@
                     <p><small>By <a href="{% url 'phrases:creator' phrase.user.username %}?order={{order}}&direction={{direction}}">{{phrase.user.username}}</a></small></p>
                 </td>
                 {%endif%}
+                <td>
+                    <div id="rating-container" title="{{phrase.rating}}">
+                        <div id="rating" style="width:{% widthratio phrase.rating 10 100 %}%;"></div>
+                    </div>
+                    ({{phrase.num_votes}}
+                    vote{{phrase.num_votes|pluralize}})
+                </td>
             </tr>
             {%endfor%}
         </tbody>
