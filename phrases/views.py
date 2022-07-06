@@ -8,6 +8,7 @@ from .forms import PhraseForm
 from django.urls import reverse_lazy
 import json
 from django.http import JsonResponse
+from django.db.models import Q
 
 class PhraseListView(ListView):
     model = Phrase
@@ -57,6 +58,11 @@ class PhraseListView(ListView):
         ordering = self.get_ordering()
         qs = Phrase.objects.all()
         print(self.kwargs)
+        if 'q' in self.request.GET: #Filter by search query
+            q = self.request.GET.get('q')
+            print(self.request.GET)
+            print(q)
+            qs = qs.filter(Q(sentence__icontains=q) | Q(author__icontains=q))
         if 'slug' in self.kwargs: #filter by category or tag
             slug = self.kwargs['slug']
             if '/category' in self.request.path_info:

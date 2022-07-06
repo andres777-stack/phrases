@@ -23,6 +23,7 @@
             value="desc" {%if direction == 'desc'%} checked {%endif%}>
             <label for="desc" class="form-check-label">DESC</label>
         </div>
+            <input type="hidden" name="q" value="{{request.GET.q}}">
         <button class="btn btn-primary btn-sm m-2" type="submit">Sort</button>
     </form>
 </div>
@@ -35,19 +36,19 @@
             {% with order=request.GET.order dir=request.GET.direction %}
             <tr>
                 {% if order == 'phrase' and dir == 'asc' %}
-                <th><a href="?order=phrase&direction=desc">Phrase</a></th>
+                <th><a href="?order=phrase&direction=desc&q={{request.GET.q}}">Phrase</a></th>
                 {%else%}
-                <th><a href="?order=phrase&direction=asc">Phrase</a></th>
+                <th><a href="?order=phrase&direction=asc&q={{request.GET.q}}">Phrase</a></th>
                 {%endif%}
                 {% if order == 'category' and dir == 'asc' %}
-                <th><a href="?order=category&direction=desc">Category</a></th>
+                <th><a href="?order=category&direction=desc&q={{request.GET.q}}">Category</a></th>
                 {%else%}
-                <th><a href="?order=category&direction=asc">Category</a></th>
+                <th><a href="?order=category&direction=asc&q={{request.GET.q}}">Category</a></th>
                 {%endif%}
                 {% if order == 'creator' and dir == 'asc' %} 
-                <th><a href="?order=creator&direction=desc">Creator</a></th>
+                <th><a href="?order=creator&direction=desc&q={{request.GET.q}}">Creator</a></th>
                 {%else%} 
-                <th><a href="?order=creator&direction=asc">Creator</a></th>
+                <th><a href="?order=creator&direction=asc&q={{request.GET.q}}">Creator</a></th>
                 {%endif%}
             </tr>
             {%endwith%}
