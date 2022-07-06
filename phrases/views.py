@@ -52,6 +52,21 @@ class PhraseListView(ListView):
             'updated': 'updated',
             'default_key': 'updated',
         }
+    
+    def get_queryset(self):
+        ordering = self.get_ordering()
+        qs = Phrase.objects.all()
+        print(self.kwargs)
+        if 'slug' in self.kwargs: #filter by category or tag
+            slug = self.kwargs['slug']
+            if '/category' in self.request.path_info:
+                qs = qs.filter(category__slug=slug)
+            if '/tag' in self.request.path_info:
+                qs = qs.filter(tags__slug=slug)
+        elif 'username' in self.kwargs: #filter by Creator
+            username = self.kwargs['username']
+            qs = qs.filter(user__username=username)
+        return qs.order_by(ordering)
 
 class PhraseDetailView(DetailView):
     model = Phrase

@@ -59,9 +59,9 @@
                     <a href="{{phrase.get_absolute_url}}">{{phrase.sentence}}</a>
                 </td>
                 <td>
-                    {{phrase.category.category}} <br>
+                    <a href="{% url 'phrases:category' phrase.category.slug %}?order={{order}}&direction={{direction}}">{{phrase.category.category}}</a> <br>
                     {% for tag in phrase.tags.all %} 
-                    <span class="badge badge-pill badge-secondary">{{tag.tag}}</span>
+                    <span class="badge badge-pill badge-secondary"><a href="{% url 'phrases:tag' tag.slug %}?order={{order}}&direction={{direction}}">{{tag.tag}}</a></span>
                     {%endfor%}  
                 </td>
                 {% if user == phrase.user %}
@@ -71,7 +71,7 @@
                 </td>
                 {%else %}
                 <td>
-                    <p><small>By {{phrase.user.username}}</small></p>
+                    <p><small>By <a href="{% url 'phrases:creator' phrase.user.username %}?order={{order}}&direction={{direction}}">{{phrase.user.username}}</a></small></p>
                 </td>
                 {%endif%}
             </tr>
