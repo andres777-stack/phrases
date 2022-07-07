@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from common.utils.text import unique_slug
 from django.conf import settings
-from django.db.models import Avg 
+from django.db.models import Avg, Count, Sum 
 
 class Phrase(models.Model):
     author = models.CharField(max_length=50)
@@ -38,6 +38,19 @@ class Phrase(models.Model):
         print(r)
         return round(5 + (r['average']) * 5, 2)
     
+    @property
+    def votes(self):
+        result = PhraseVote.objects.filter(phrase=self).aggregate(
+            num_votes=Count('vote'),
+            sum_votes=Sum('vote'),
+        )
+        if result['num_votes'] == 0:
+            return {'num_votes': 0, 'rating': 0, 'likes': 0, 'dislikes': 0}
+        result['rating'] = round(5 + ((result['sum_votes']/result['num_votes'])* 5), 2)
+        result['dislikes'] = int((result['num_votes'] - result['sum_votes'])/2)
+        result['likes'] = result['num_votes'] - result['dislikes']
+        return result
+
     @property
     def num_votes(self):
         return self.phrasevotes.count()

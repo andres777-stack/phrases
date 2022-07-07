@@ -77,11 +77,13 @@
                 </td>
                 {%endif%}
                 <td>
-                    <div id="rating-container" title="{{phrase.rating}}">
-                        <div id="rating" style="width:{% widthratio phrase.rating 10 100 %}%;"></div>
+                    {% with votes=phrase.votes %}
+                    <div id="rating-container" title="{{votes.rating}}">
+                        <div id="rating" style="width:{% widthratio votes.rating 10 100 %}%;"></div>
                     </div>
-                    ({{phrase.num_votes}}
-                    vote{{phrase.num_votes|pluralize}})
+                    ({{votes.num_votes}}
+                    vote{{votes.num_votes|pluralize}})
+                    {%endwith%}
                 </td>
             </tr>
             {%endfor%}

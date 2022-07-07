@@ -27,32 +27,36 @@
             class="btn btn-info btn-sm mr-2">Update</a>
           <a href="{% url 'phrases:delete' phrase.slug %}"
             class="btn btn-danger btn-sm mr-2">Delete</a>
+            {% with votes=phrase.votes %}
           <p>
             Your phrase has
             <span id="num-votes">
-              {{ phrase.num_votes|default:'no' }}
-              vote{{ phrase.num_votes|pluralize }}</span>
-            {% if phrase.num_votes %}:
-            <span id="likes">{{ phrase.num_likes }}
-              like{{ phrase.num_likes|pluralize }}</span> and
+              {{ votes.num_votes|default:'no' }}
+              vote{{ votes.num_votes|pluralize }}</span>
+            {% if votes.num_votes %}:
+            <span id="likes">{{ votes.num_likes }}
+              like{{ votes.num_likes|pluralize }}</span> and
             <span id="dislikes">
-              {{ phrase.num_dislikes }}
-              dislike{{ phrase.num_dislikes|pluralize }}</span>
+              {{ votes.num_dislikes }}
+              dislike{{ votes.num_dislikes|pluralize }}</span>
             {% endif %}.
           </p>
+            {% endwith %}
         {% else %}
           {% csrf_token %}
+            {% with votes=phrase.votes %}
           <button id="dislike-button" class="btn btn-light">
             <i class="fas fa-thumbs-down fa-2x text-danger mx-3"></i>
-            <span id="dislikes">{{ phrase.num_dislikes }}</span>
+            <span id="dislikes">{{ votes.num_dislikes }}</span>
           </button>
           <button id="like-button" class="btn btn-light">
             <i class="fas fa-thumbs-up fa-2x text-success mx-3"></i>
-            <span id="likes">{{ phrase.num_likes }}</span>
+            <span id="likes">{{ votes.num_likes }}</span>
           </button>
           <div id="output" class="text-info"></div>
-          <span id="num-votes">{{ phrase.num_votes }}
-            vote{{ phrase.num_votes|pluralize }}</span>
+          <span id="num-votes">{{ votes.num_votes }}
+            vote{{ votes.num_votes|pluralize }}</span>
+            {%endwith%}
         {% endif %}
         </div>
         <small class="text-muted">
